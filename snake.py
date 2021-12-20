@@ -1,4 +1,5 @@
-from turtle import Turtle
+from turtle import Turtle, Screen
+import time
 
 # Constant Starting positions:
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
@@ -19,11 +20,18 @@ class Snake:
 
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            new_segment = Turtle("square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.setposition(position)
-            self.segments.append(new_segment)
+            self.add_segment(position)
+
+    # Extending the tail:
+    def add_segment(self, position):
+        new_segment = Turtle("square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.setposition(position)
+        self.segments.append(new_segment)
+
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
     # STEP 2: Moving the Snake
     def move(self):
@@ -49,3 +57,12 @@ class Snake:
     def right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+
+    # Control speed:
+    # def speed(self):
+    #     screen = Screen()
+    #     difficulty = screen.textinput(title="Difficulty", prompt="Choose a difficulty: 'Hard' || 'Easy ").lower()
+    #     if difficulty == 'easy':
+    #         return time.sleep(0.1)
+    #     else:
+    #         return time.sleep(0.05)
